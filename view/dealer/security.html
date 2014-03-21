@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include header.html %>
+  </head>
+
+  <body>
+
+    <% include nav.html %>
+
+    <div class="container">
+      <div class="row" id="message">
+        <div class="col-md-12">
+            <div class="alert alert-info fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                你有新的订单！<a href="/dealer/manageOrder">查看&gt;&gt;</a>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs nav-justified">
+                <li><a href="/dealer/manageOrder">订单管理</a></li>
+                <li><a href="/dealer/manageItem">商品管理</a></li>
+                <li><a href="#">交易统计</a></li>
+                <li><a href="/shop/settings">商店设置</a></li>
+                <li class="active"><a href="/user/security">安全设置</a></li>
+            </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="content">
+            <div class="col-md-12">
+              <form class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    旧密码：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="password" id="oldPwd" class="form-control" placeholder="请输入旧密码">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    新密码：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="password" id="newPwd" class="form-control" placeholder="请输入新密码">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    确认新密码：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="password" id="renewPwd" class="form-control" placeholder="请输入新密码">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-4 control-label">
+                  </label>
+                  <div class="col-sm-6">
+                    <button type="button" class="btn btn-primary" id="updatePwd">更新密码</button>
+                  </div>
+                </div>
+              </form>                
+            </div>
+        </div>
+      </div>
+      
+      <% include footer.html %>
+
+    <script type="text/javascript" src="/static/js/security.js"></script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  min-width: 970px;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.page {
+  text-align: right;
+}
+
+.tool-bar {
+  margin-top: 20px;
+}
+
+.tool-item {
+  float: right;
+  margin-left: 20px;
+}
+
+.text-center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.progress {
+    margin-top: 7px;
+    margin-bottom: 0;
+}
+
+.item-img {
+  display: none;
+  text-align: center;
+}
+
+.item-img > img {
+  width: 320px;
+  height: 240px;
+}
+
+#message {
+  display: none;
+}

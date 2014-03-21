@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include header.html %>
+  </head>
+
+  <body>
+
+    <% include nav.html %>
+
+    <div class="container">
+      <div class="row" id="message">
+        <div class="col-md-12">
+            <div class="alert alert-info fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                你有新的订单！<a href="/dealer/manageOrder">查看&gt;&gt;</a>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs nav-justified">
+                <li><a href="/dealer/manageOrder">订单管理</a></li>
+                <li><a href="/dealer/manageItem">商品管理</a></li>
+                <li><a href="#">交易统计</a></li>
+                <li class="active"><a href="/shop/settings">商店设置</a></li>
+                <li><a href="/user/security">安全设置</a></li>
+            </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="content">
+            <div class="col-md-12">
+              <form class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    店名：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="text" id="sname" class="form-control" value="<%= shop.name %>" placeholder="请输入店名">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    简介：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="text" id="sdesc" class="form-control" value="<%= shop.description %>" placeholder="请输入简介">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    座机：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="text" id="tel" class="form-control" value="<%= shop.telephone %>" placeholder="座机">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    手机：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="text" id="mphone" class="form-control" value="<%= shop.mobilephone %>" placeholder="手机">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                    地址：
+                  </label>
+                  <div class="col-sm-6">
+                    <input type="text" id="saddr" class="form-control" value="<%= shop.address %>" placeholder="请输入地址">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">
+                  
+                  </label>
+                  <div class="col-sm-6">
+                    <button type="button" id="updateSettings" class="btn btn-primary">更新信息</button>
+                  </div>
+                </div>
+              </form>                
+            </div>
+        </div>
+      </div>
+
+      <% include footer.html %>
+
+    <script type="text/javascript" src="/static/js/settings.js"></script>
+  </body>
+</html>

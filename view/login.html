@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="letumeishi">
+    <meta name="author" content="fourblock">
+    <title>letumeishi</title>
+    <link rel="icon" href="/static/image/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/image/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/signin.css">
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-signin" action="/login" method="post" role="form">
+        <% if(locals.msg) {%>
+          <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <%= msg %>
+          </div>
+        <% } %>
+        <h2 class="form-signin-heading">乐兔美食商家管理系统</h2>
+        <input type="text" name="name" class="form-control" placeholder="用户名" required autofocus>
+        <input type="password" name="password" class="form-control" placeholder="密码" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      </form>
+    </div>
+    <script src="/static/js/jquery-1.11.0.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+  </body>
+</html>

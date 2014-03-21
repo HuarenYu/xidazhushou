@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include header.html %>
+    <link rel="stylesheet" type="text/css" href="/static/css/datepicker3.css">
+  </head>
+
+  <body>
+    
+    <% include nav.html %>
+
+    <div class="container">
+      <div class="row" id="message">
+        <div class="col-md-12">
+            <div class="alert alert-info fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                你有新的订单！<a href="/dealer/manageOrder">查看&gt;&gt;</a>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#">订单管理</a></li>
+                <li><a href="/dealer/manageItem">商品管理</a></li>
+                <li><a href="#">交易统计</a></li>
+                <li><a href="/shop/settings">商店设置</a></li>
+                <li><a href="/user/security">安全设置</a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <div class="tool-bar">
+                <div class="tool-item">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">按状态筛选 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu"  role="menu">
+                      <li><a href="javascript:;" id="unsend">未发货订单</a></li>
+                      <li><a href="javascript:;" id="sended">已完成订单</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="tool-item">
+                  <button type="button" id="datepicker" class="btn btn-primary">按日期筛选 <span class="caret"></span></button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="content">
+            <div class="col-md-12">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th colspan="9" class="text-center">
+                        <span id="orderDate">今日订单</span>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>编号</th>
+                      <th>商品信息</th>
+                      <th>合计</th>
+                      <th>顾客信息</th>
+                      <th>下单时间</th>
+                      <th>状态</th>
+                      <th>管理</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(var i = 0; i < orderList.length; i++) { %>
+                    <tr>
+                      <td><%= orderList[i].id %></td>
+                      <td>
+                        <% for(var j = 0; j < orderList[i].items.length; j++) { %>
+                          <%= orderList[i].items[j].item_name %> 
+                          <%= orderList[i].items[j].item_price %>元/份 
+                          订<%= orderList[i].items[j].number %>份<br>
+                        <% } %>
+                      </td>
+                      <td><%= orderList[i].total_cost %>元</td>
+                      <td>
+                        <ul>
+                          <li>姓名：<%= orderList[i].customer_name %></li>
+                          <li>电话：<%= orderList[i].customer_phone %></li>
+                          <li>地址：<%= orderList[i].customer_address %></li>
+                          <li>备注：<%= orderList[i].comment %></li>
+                          <li>收货时间：<%= orderList[i].receive_time %></li>
+                        </ul>
+                      </td>
+                      <td><%=: orderList[i].create_time | dateFormat:'YYYY-MM-DD HH:mm:ss' %>
+                      </td>
+                      <td>
+                        <% if (orderList[i].state === '未发货') { %>
+                        <span class="label label-warning"><%= orderList[i].state%></span>
+                        <% } else { %>
+                        <span class="label label-success"><%= orderList[i].state%></span>
+                        <% } %>
+
+                      </td>
+                      <td>
+                        <% if (orderList[i].state === '未发货') { %>
+                        <button type="button" action="send" data-id="<%= orderList[i].id %>" class="btn btn-success">发货</button>
+                        <% } %>
+                      </td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+      
+      <% include footer.html %>
+
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/static/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="/static/js/query-string.js"></script>
+    <script type="text/javascript" src="/static/js/order.js"></script>
+  </body>
+</html>

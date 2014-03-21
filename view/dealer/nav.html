@@ -1,0 +1,27 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">乐兔美食</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <%= req.session.user.shop.name %> <span class="glyphicon glyphicon-user"></span> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu"  role="menu">
+                    <li>
+                      <a href="/logout"><span class="glyphicon glyphicon-off"> 退出</a>
+                    </li>
+                </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>

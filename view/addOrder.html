@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>乐兔美食</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <link type="text/css" rel="stylesheet" href="/static/css/base.css">
+    <script type="text/javascript" src="/static/js/zepto.min.js"></script>
+  </head>
+<body>
+
+  <header id="header" class="clearfix">
+    <div class="dropdown">
+      <a href="javascript:void(0);" class="home" id="menu">
+        <i class="icon-home"></i>
+      </a>
+      <% include nav.html %>
+    </div>
+    <div class="title">
+      我的购物车
+    </div>
+  </header>
+
+  <section id="content">
+    <div class="cart">
+      <div class="item-table">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>商品</th>
+            <th>单价</th>
+            <th>份数</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody id="itemGroup">
+          </tbody>
+          <tr>
+            <td>合计</td>
+            <td colspan="3"><span id="totalPrice"></span>元</td>
+          </tr>
+        </table>
+      </div>
+      <div class="order-info">
+
+        <div class="form-row clearfix">
+          <div class="form-title">收货人：</div>
+          <div class="form-input"><input type="text" name="consumer" placeholder="必填"></div>
+        </div>
+        <div class="form-row clearfix">
+          <div class="form-title">联系电话：</div>
+          <div class="form-input"><input type="text" name="consumerPhone" placeholder="必填"></div>
+        </div>
+        <div class="form-row clearfix">
+          <div class="form-title">备用电话：</div>
+          <div class="form-input"><input type="text" name="consumerPhone2" placeholder="预防电话静音等情况"></div>
+        </div>
+        <div class="form-row clearfix">
+          <div class="form-title">收货地址：</div>
+          <div class="form-input"><input type="text" name="consumerAddress" placeholder="必填"></div>
+        </div>
+        <div class="form-row clearfix">
+          <div class="form-title">收货时间：</div>
+          <div class="form-input">
+            <select name="deliverSTime" id="deliverSTime">
+                  
+            </select>
+            -
+            <select name="deliverETime" id="deliverETime">
+                  
+            </select>
+          </div>
+        </div>
+        <div class="form-row clearfix">
+          <div class="form-title">备注：</div>
+          <div class="form-input"><input type="text" name="comment" placeholder="可以说明口味、分量等"></div>
+        </div>
+        <div class="form-row clearfix">
+          <div class="form-title">&nbsp;</div>
+          <div class="form-input">
+          <button class="btn" action="submitOrder">提交订单</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="dialog-wrapper" id="dialog">
+    <div class="dialog">
+      <div class="dialog-header clearfix">
+        <div class="dialog-close">
+          <a href="javascript:void(0);" class="close-btn" data-target="close">&times;</a>
+        </div>
+      </div>
+      <div class="dialog-content">
+      
+      </div>
+      <div class="dialog-footer clearfix">
+        <div class="dialog-button">
+          <button class="normal-btn" data-target="cancel">取消</button>
+          <button class="base-btn" data-target="insue">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-wrapper" id="infoDialog">
+    <div class="dialog">
+      <div class="dialog-header clearfix">
+        <div class="dialog-close">
+          <a href="javascript:void(0);" class="close-btn" data-target="close">&times;</a>
+        </div>
+      </div>
+      <div class="dialog-content">
+      
+      </div>
+      <div class="dialog-footer clearfix">
+        <div class="dialog-button">
+          <button class="base-btn" data-target="cancel">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="message" id="message">
+    <img src="/static/image/loading.gif" alt="loading...">
+    <div class="message-content">正在提交订单</div>
+  </div>
+  
+  <script type="text/javascript">
+    var items = <%- JSON.stringify(items) %>;
+  </script>
+  <script type="text/javascript" src="/static/js/addOrder.js"></script>
+</body>
+</html>
