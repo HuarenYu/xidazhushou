@@ -57,7 +57,7 @@
             var capture = function() {
                 ctx.drawImage(video, 0, 0);
                 var imgData = canvas.toDataURL('image/png');
-                imgBase64Str = imgDta.substr(22);
+                imgBase64Str = imgData.substr(22);
             };
             var uploadUrl = 'https://api-content.dropbox.com/1/files_put/dropbox/'
                           + 'test.png?Authorization=  Bearer ' + token;
