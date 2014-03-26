@@ -39,6 +39,8 @@
             var uploadBtn = document.querySelector('#uploadBtn');
             var canvas = document.querySelector('#canvas');
             var status = document.querySelector('#status');
+            var statusText = document.createTextNode('');
+            status.appendChild(statusText);
             canvas.height = 240;
             canvas.width = 320;
             var ctx = canvas.getContext('2d');
@@ -78,7 +80,7 @@
                     alert('Please capture.');
                     return;
                 }
-                status.innerHTML = 'uploading...';
+                statusText.nodeValue = 'uploading...';
                 var ajax = new XMLHttpRequest();
                 var date = new Date();
                 imgName = date.getTime() + '.png';
@@ -89,11 +91,11 @@
                 ajax.onreadystatechange = function() {
                     if (ajax.readyState === 4) {
                         if (ajax.status === 200) {
-                            status.innerHTML = ajax.responseText;
+                            statusText.nodeValue = ajax.responseText;
                             alert('A picture named ' + imgName + ' was saved to your dropbox root directory.');
                         } else {
                             alert('Upload encounter an error.');
-                            status.innerHTML = ajax.responseText;
+                            statusText.nodeValue = ajax.responseText;
                         }
                     }
                 }
