@@ -28,7 +28,6 @@
                 }
                 
             }
-            
             navigator.getUserMedia = navigator.getUserMedia ||
                                      navigator.webkitGetUserMedia ||
                                      navigator.mozGetUserMedia ||
@@ -48,7 +47,7 @@
                                                 }}},
                     function(stream) {
                         video.src = window.URL.createObjectURL(stream);
-                    }, 
+                    },
                     function(error) {
                         alert('Open camera error.');
                 });
@@ -59,17 +58,28 @@
                 var imgData = canvas.toDataURL('image/png');
                 imgBase64Str = imgData.substr(22);
             };
-            var uploadUrl = 'https://api-content.dropbox.com/1/files_put/dropbox/'
-                          + 'test.png';
+            var uploadUrl = 'https://api-content.dropbox.com/1/files_put/dropbox/';
+            var imgName = '';
             var upload = function() {
+                if (!imgBase64Str) {
+                    alert('Please capture.');
+                    return;
+                }
                 var ajax = new XMLHttpRequest();
-                ajax.open('PUT', uploadUrl, true);
+                var date = new Date();
+                imgName = date.getTime() + '.png';
+                ajax.open('PUT', uploadUrl + imageName, true);
                 ajax.setRequestHeader('Authorization', ' Bearer ' + token);
                 ajax.setRequestHeader('Content-type', 'image/png');
                 ajax.send(base64DecToArr(imgBase64Str));
                 ajax.onreadystatechange = function() {
-                    if (ajax.readyState==4 && ajax.status==200) {
-                        console.log(ajax.responseText);
+                    if (ajax.readyState === 4) {
+                        if (ajax.status === 200) {
+                            var response = JSON.parse(ajax.responseText);
+                            alert('A picture named ' + imgName + 'wase saved to your dropbox root directory.');
+                        } else {
+                            alert('Upload encounter an error.');
+                        }
                     }
                 }
             };
@@ -82,6 +92,20 @@
             uploadBtn.addEventListener('click', function(e) {
                 upload();
             });
+            function parseQueryString(qs) {
+                var params = {};
+                if (!qs) return params;
+                var paramPairs = qs.split('&');
+                paramPairs.forEach(function(item, index) {
+                    var nameValue = item.split('=');
+                    if (nameValue[0]) {
+                        params[nameValue[0]] = nameValue[1];
+                    }
+                });
+                return params;
+            }
+            //This two functions is reference from MDN base64 string convert to 
+            //ArrayBuffere.
             function b64ToUint6 (nChr) {
               return nChr > 64 && nChr < 91 ?
                   nChr - 65
@@ -117,20 +141,7 @@
               return taBytes;
             }
 
-            function parseQueryString(qs) {
-                var params = {};
-                if (!qs) return params;
-                var paramPairs = qs.split('&');
-                paramPairs.forEach(function(item, index) {
-                    var nameValue = item.split('=');
-                    if (nameValue[0]) {
-                        params[nameValue[0]] = nameValue[1];
-                    }
-                });
-                return params;
-            }
-
-
+            
         </script>
     </body>
 </html>
