@@ -60,10 +60,11 @@
                 imgBase64Str = imgData.substr(22);
             };
             var uploadUrl = 'https://api-content.dropbox.com/1/files_put/dropbox/'
-                          + 'test.png?Authorization=  Bearer ' + token;
+                          + 'test.png';
             var upload = function() {
                 var ajax = new XMLHttpRequest();
                 ajax.open('PUT', uploadUrl, true);
+                ajax.setRequestHeader('Authorization', ' Bearer ' + token);
                 ajax.setRequestHeader('Content-type', 'image/png');
                 ajax.send(base64DecToArr(imgBase64Str));
                 ajax.onreadystatechange = function() {
