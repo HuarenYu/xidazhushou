@@ -10,6 +10,7 @@
         <button id="openCameraBtn">Open camera</button>
         <button id="captureBtn">Capture</button>
         <button id="uploadBtn">Upload to my Dropbox</button>
+        <div id="status">---</div>
         <script type="text/javascript">
             var queryString = location.href.indexOf('#') ? 
                               location.href.substring(location.href.indexOf('#') + 1)
@@ -37,10 +38,7 @@
             var captureBtn = document.querySelector('#captureBtn');
             var uploadBtn = document.querySelector('#uploadBtn');
             var canvas = document.querySelector('#canvas');
-            var status = document.createElement('div');
-            var statusText = document.createTextNode('');
-            status.appendChild(statusText);
-            document.body.appendChild(status);
+            var status = document.querySelector('#status');
             canvas.height = 240;
             canvas.width = 320;
             var ctx = canvas.getContext('2d');
@@ -80,7 +78,7 @@
                     alert('Please capture.');
                     return;
                 }
-                statusText.nodeValue = 'uploading...';
+                status.innerHTML = 'uploading...';
                 var ajax = new XMLHttpRequest();
                 var date = new Date();
                 imgName = date.getTime() + '.png';
@@ -91,11 +89,11 @@
                 ajax.onreadystatechange = function() {
                     if (ajax.readyState === 4) {
                         if (ajax.status === 200) {
-                            statusText.nodeValue = ajax.responseText;
+                            status.innerHTML = ajax.responseText;
                             alert('A picture named ' + imgName + ' was saved to your dropbox root directory.');
                         } else {
+                            status.innerHTML = ajax.responseText;
                             alert('Upload encounter an error.');
-                            statusText.nodeValue = ajax.responseText;
                         }
                     }
                 }
