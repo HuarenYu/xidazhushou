@@ -68,7 +68,7 @@
                 var ajax = new XMLHttpRequest();
                 var date = new Date();
                 imgName = date.getTime() + '.png';
-                ajax.open('PUT', uploadUrl + imageName, true);
+                ajax.open('PUT', uploadUrl + imgName, true);
                 ajax.setRequestHeader('Authorization', ' Bearer ' + token);
                 ajax.setRequestHeader('Content-type', 'image/png');
                 ajax.send(base64DecToArr(imgBase64Str));
