@@ -11,8 +11,9 @@
         <button id="captureBtn">Capture</button>
 
         <script type="text/javascript">
-            var queryString = location.search.length > 0 ? 
-                              location.search.substring(1) : '';
+            var queryString = location.href.indexOf('#') ? 
+                              location.href.substring(location.href.indexOf('#') + 1)
+                              : '';
             var queryParams = parseQueryString(queryString);
             var token = queryParams['access_token'];
             if (!token) {
