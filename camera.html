@@ -9,7 +9,7 @@
         <canvas id="canvas"></canvas>
         <button id="openCameraBtn">Open camera</button>
         <button id="captureBtn">Capture</button>
-
+        <button id="uploadBtn">Upload to my Dropbox</button>
         <script type="text/javascript">
             var queryString = location.href.indexOf('#') ? 
                               location.href.substring(location.href.indexOf('#') + 1)
@@ -17,12 +17,18 @@
             var queryParams = parseQueryString(queryString);
             var token = queryParams['access_token'];
             if (!token) {
-                window.location.href = 'https://www.dropbox.com/1/oauth2/authorize?'
-                                     + 'response_type=token&client_id=6zfho04r89gxu0c'
+                var result = confirm('Loing use Dropbox account?');
+                if (result) {
+                    window.location.href = 'https://www.dropbox.'
+                                     + 'com/1/oauth2/authorize?'
+                                     + 'response_type=token&client_id='
+                                     + '6zfho04r89gxu0c'
                                      + '&redirect_uri=https://huarenyu.github.'
                                      + 'io/xidazhushou/camera.html';
+                }
+                
             }
-            console.log(queryParams);
+            
             navigator.getUserMedia = navigator.getUserMedia ||
                                      navigator.webkitGetUserMedia ||
                                      navigator.mozGetUserMedia ||
@@ -30,6 +36,7 @@
             var video = document.querySelector('#video');
             var openCameraBtn = document.querySelector('#openCameraBtn');
             var captureBtn = document.querySelector('#captureBtn');
+            var uploadBtn = document.querySelector('#uploadBtn');
             var canvas = document.querySelector('#canvas');
             canvas.height = 240;
             canvas.width = 320;
@@ -46,11 +53,24 @@
                         alert('Open camera error.');
                 });
             };
+            var imgBase64Str = '';
             var capture = function() {
                 ctx.drawImage(video, 0, 0);
                 var imgData = canvas.toDataURL('image/png');
-                var base64Str = document.createTextNode(imgData);
-                document.querySelector('body').appendChild(base64Str);
+                imgBase64Str = imgDta.substr(22);
+            };
+            var uploadUrl = 'https://api-content.dropbox.com/1/files_put/dropbox/'
+                          + 'test.png?Authorization=  Bearer ' + token;
+            var upload = function() {
+                var ajax = new XMLHttpRequest();
+                ajax.open('PUT', uploadUrl, true);
+                ajax.setRequestHeader('Content-type', 'image/png');
+                ajax.send(base64DecToArr(imgBase64Str));
+                ajax.onreadystatechange = function() {
+                    if (ajax.readyState==4 && ajax.status==200) {
+                        console.log(ajax.responseText);
+                    }
+                }
             };
             openCameraBtn.addEventListener('click', function(e) {
                 openCamera();
@@ -58,6 +78,10 @@
             captureBtn.addEventListener('click', function(e) {
                 capture();
             });
+            uploadBtn.addEventListener('click', function(e) {
+                upload();
+            });
+
             function base64DecToArr (sBase64, nBlocksSize) {
                 var sB64Enc = sBase64.replace(/[^A-Za-z0-9\+\/]/g, ""), 
                     nInLen = sB64Enc.length,
