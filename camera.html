@@ -10,7 +10,6 @@
         <button id="openCameraBtn">Open camera</button>
         <button id="captureBtn">Capture</button>
         <button id="uploadBtn">Upload to my Dropbox</button>
-        <div id="status"></div>
         <script type="text/javascript">
             var queryString = location.href.indexOf('#') ? 
                               location.href.substring(location.href.indexOf('#') + 1)
@@ -38,9 +37,10 @@
             var captureBtn = document.querySelector('#captureBtn');
             var uploadBtn = document.querySelector('#uploadBtn');
             var canvas = document.querySelector('#canvas');
-            var status = document.querySelector('#status');
+            var status = document.createElement('div');
             var statusText = document.createTextNode('');
             status.appendChild(statusText);
+            document.body.appendChild(status);
             canvas.height = 240;
             canvas.width = 320;
             var ctx = canvas.getContext('2d');
