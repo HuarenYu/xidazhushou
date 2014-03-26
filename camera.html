@@ -10,7 +10,7 @@
         <button id="openCameraBtn">Open camera</button>
         <button id="captureBtn">Capture</button>
         <button id="uploadBtn">Upload to my Dropbox</button>
-        <div id="status">---</div>
+        <div id="uploadState"></div>
         <script type="text/javascript">
             var queryString = location.href.indexOf('#') ? 
                               location.href.substring(location.href.indexOf('#') + 1)
@@ -38,7 +38,7 @@
             var captureBtn = document.querySelector('#captureBtn');
             var uploadBtn = document.querySelector('#uploadBtn');
             var canvas = document.querySelector('#canvas');
-            var status = document.querySelector('#status');
+            var uploadState = document.querySelector('#uploadState');
             canvas.height = 240;
             canvas.width = 320;
             var ctx = canvas.getContext('2d');
@@ -78,7 +78,7 @@
                     alert('Please capture.');
                     return;
                 }
-                status.innerHTML = 'uploading...';
+                uploadState.innerHTML = 'uploading...';
                 var ajax = new XMLHttpRequest();
                 var date = new Date();
                 imgName = date.getTime() + '.png';
@@ -89,10 +89,10 @@
                 ajax.onreadystatechange = function() {
                     if (ajax.readyState === 4) {
                         if (ajax.status === 200) {
-                            status.innerHTML = ajax.responseText;
+                            uploadState.innerHTML = ajax.responseText;
                             alert('A picture named ' + imgName + ' was saved to your dropbox root directory.');
                         } else {
-                            status.innerHTML = ajax.responseText;
+                            uploadState.innerHTML = ajax.responseText;
                             alert('Upload encounter an error.');
                         }
                     }
