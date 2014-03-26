@@ -10,6 +10,7 @@
         <button id="openCameraBtn">Open camera</button>
         <button id="captureBtn">Capture</button>
         <button id="uploadBtn">Upload to my Dropbox</button>
+        <div id="status"></div>
         <script type="text/javascript">
             var queryString = location.href.indexOf('#') ? 
                               location.href.substring(location.href.indexOf('#') + 1)
@@ -37,9 +38,29 @@
             var captureBtn = document.querySelector('#captureBtn');
             var uploadBtn = document.querySelector('#uploadBtn');
             var canvas = document.querySelector('#canvas');
+            var status = document.querySelector('#status');
             canvas.height = 240;
             canvas.width = 320;
             var ctx = canvas.getContext('2d');
+            var uploadUrl = 'https://api-content.dropbox.com/1/files_put/dropbox/';
+            var imgName = '';
+            var imgBase64Str = '';
+
+            openCameraBtn.addEventListener('click', function(e) {
+                openCamera();
+            });
+            captureBtn.addEventListener('click', function(e) {
+                capture();
+            });
+            uploadBtn.addEventListener('click', function(e) {
+                upload();
+            });
+
+            var capture = function() {
+                ctx.drawImage(video, 0, 0);
+                var imgData = canvas.toDataURL('image/png');
+                imgBase64Str = imgData.substr(22);
+            };
             var openCamera = function() {
                 navigator.getUserMedia({video: {mandatory: {
                                                   maxWidth: 320,
@@ -52,19 +73,12 @@
                         alert('Open camera error.');
                 });
             };
-            var imgBase64Str = '';
-            var capture = function() {
-                ctx.drawImage(video, 0, 0);
-                var imgData = canvas.toDataURL('image/png');
-                imgBase64Str = imgData.substr(22);
-            };
-            var uploadUrl = 'https://api-content.dropbox.com/1/files_put/dropbox/';
-            var imgName = '';
             var upload = function() {
                 if (!imgBase64Str) {
                     alert('Please capture.');
                     return;
                 }
+                status.innerHTML = 'uploading...';
                 var ajax = new XMLHttpRequest();
                 var date = new Date();
                 imgName = date.getTime() + '.png';
@@ -75,23 +89,15 @@
                 ajax.onreadystatechange = function() {
                     if (ajax.readyState === 4) {
                         if (ajax.status === 200) {
-                            var response = JSON.parse(ajax.responseText);
-                            alert('A picture named ' + imgName + 'wase saved to your dropbox root directory.');
+                            status.innerHTML = ajax.responseText;
+                            alert('A picture named ' + imgName + ' was saved to your dropbox root directory.');
                         } else {
                             alert('Upload encounter an error.');
+                            status.innerHTML = ajax.responseText;
                         }
                     }
                 }
             };
-            openCameraBtn.addEventListener('click', function(e) {
-                openCamera();
-            });
-            captureBtn.addEventListener('click', function(e) {
-                capture();
-            });
-            uploadBtn.addEventListener('click', function(e) {
-                upload();
-            });
             function parseQueryString(qs) {
                 var params = {};
                 if (!qs) return params;
