@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>camera</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <body>
+        <video id="video" autoplay></video>
+        <canvas id="canvas"></canvas>
+        <button id="openCameraBtn">Open camera</button>
+        <button id="captureBtn">Capture</button>
+        <form method="post" action="test" enctype="multipart/form-data">
+            <input type="file" name="img">
+            <input type="submit" value="sumbimt">
+        </form>
+        <script type="text/javascript">
+            navigator.getUserMedia  = navigator.getUserMedia ||
+                                      navigator.webkitGetUserMedia ||
+                                      navigator.mozGetUserMedia ||
+                                      navigator.msGetUserMedia;
+            var video = document.querySelector('#video');
+            var openCameraBtn = document.querySelector('#openCameraBtn');
+            var captureBtn = document.querySelector('#captureBtn');
+            var canvas = document.querySelector('#canvas');
+            canvas.height = 240;
+            canvas.width = 320;
+            var ctx = canvas.getContext('2d');
+            var openCamera = function() {
+                navigator.getUserMedia({video: {mandatory: {
+                                                  maxWidth: 320,
+                                                  maxHeight: 240
+                                                }}},
+                    function(stream) {
+                        video.src = window.URL.createObjectURL(stream);
+                    }, 
+                    function(error) {
+                        alert('Open camera error.');
+                });
+            };
+            var capture = function() {
+                ctx.drawImage(video, 0, 0);
+                var imgData = canvas.toDataURL('image/png');
+                var base64Str = document.createTextNode(imgData);
+                document.querySelector('body').appendChild(base64Str);
+            };
+            openCameraBtn.addEventListener('click', function(e) {
+                openCamera();
+            });
+            captureBtn.addEventListener('click', function(e) {
+                capture();
+            });
+            function base64DecToArr (sBase64, nBlocksSize) {
+                var sB64Enc = sBase64.replace(/[^A-Za-z0-9\+\/]/g, ""), 
+                    nInLen = sB64Enc.length,
+                    nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2, taBytes = new Uint8Array(nOutLen);
+
+              for (var nMod3, nMod4, nUint24 = 0, nOutIdx = 0, nInIdx = 0; nInIdx < nInLen; nInIdx++) {
+                nMod4 = nInIdx & 3;
+                nUint24 |= b64ToUint6(sB64Enc.charCodeAt(nInIdx)) << 18 - 6 * nMod4;
+                if (nMod4 === 3 || nInLen - nInIdx === 1) {
+                  for (nMod3 = 0; nMod3 < 3 && nOutIdx < nOutLen; nMod3++, nOutIdx++) {
+                    taBytes[nOutIdx] = nUint24 >>> (16 >>> nMod3 & 24) & 255;
+                  }
+                  nUint24 = 0;
+
+                }
+              }
+
+              return taBytes;
+            }
+
+        </script>
+    </body>
+</html>
