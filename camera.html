@@ -9,15 +9,21 @@
         <canvas id="canvas"></canvas>
         <button id="openCameraBtn">Open camera</button>
         <button id="captureBtn">Capture</button>
-        <form method="post" action="test" enctype="multipart/form-data">
-            <input type="file" name="img">
-            <input type="submit" value="sumbimt">
-        </form>
+
         <script type="text/javascript">
-            navigator.getUserMedia  = navigator.getUserMedia ||
-                                      navigator.webkitGetUserMedia ||
-                                      navigator.mozGetUserMedia ||
-                                      navigator.msGetUserMedia;
+            var queryString = location.search.length > 0 ? 
+                              location.search.substring(1) : '';
+            var queryParams = parseQueryString(queryString);
+            var token = queryParams['access_token'];
+            if (!token) {
+                window.location.href = 'https://www.dropbox.com/1/oauth2/authorize?'
+                                     + 'response_type=token&client_id=6zfho04r89gxu0c';
+            }
+            console.log(queryParams);
+            navigator.getUserMedia = navigator.getUserMedia ||
+                                     navigator.webkitGetUserMedia ||
+                                     navigator.mozGetUserMedia ||
+                                     navigator.msGetUserMedia;
             var video = document.querySelector('#video');
             var openCameraBtn = document.querySelector('#openCameraBtn');
             var captureBtn = document.querySelector('#captureBtn');
@@ -52,7 +58,8 @@
             function base64DecToArr (sBase64, nBlocksSize) {
                 var sB64Enc = sBase64.replace(/[^A-Za-z0-9\+\/]/g, ""), 
                     nInLen = sB64Enc.length,
-                    nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2, taBytes = new Uint8Array(nOutLen);
+                    nOutLen = nBlocksSize ? Math.ceil((nInLen * 3 + 1 >> 2) / nBlocksSize) * nBlocksSize : nInLen * 3 + 1 >> 2, 
+                    taBytes = new Uint8Array(nOutLen);
 
               for (var nMod3, nMod4, nUint24 = 0, nOutIdx = 0, nInIdx = 0; nInIdx < nInLen; nInIdx++) {
                 nMod4 = nInIdx & 3;
@@ -65,10 +72,21 @@
 
                 }
               }
-
               return taBytes;
             }
 
+            function parseQueryString(qs) {
+                var params = {};
+                if (!qs) return params;
+                var paramPairs = qs.split('&');
+                paramPairs.forEach(function(item, index) {
+                    var nameValue = item.split('=');
+                    if (nameValue[0]) {
+                        params[nameValue[0]] = nameValue[1];
+                    }
+                });
+                return params;
+            }
         </script>
     </body>
 </html>
