@@ -18,7 +18,7 @@
             var queryParams = parseQueryString(queryString);
             var token = queryParams['access_token'];
             if (!token) {
-                var result = confirm('Loing use Dropbox account?');
+                var result = confirm('Loin use your dropbox account?');
                 if (result) {
                     window.location.href = 'https://www.dropbox.'
                                      + 'com/1/oauth2/authorize?'
