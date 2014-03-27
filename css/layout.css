@@ -1,0 +1,134 @@
+@charset "utf-8";
+/* CSS Document */
+.top-header{
+	padding:5px 0;
+	background-color:#F06;
+	box-shadow:2px 5px 3px #aaaaaa;
+}
+body{
+	font-family:"微软雅黑", "宋体";
+	font-size:12px;
+	color:#555;	
+}
+
+.blank20{
+	margin-top:20px;	
+}
+.blank30{
+	margin-top:30px;	
+}
+.navigation{
+	background-color:#F06;
+	padding:10px 0;
+	color:#FFF;
+	font-size:16px;
+	font-weight:bolder;
+	border-radius:5px;
+	box-shadow:2px 5px 3px #aaaaaa;
+}
+.common-link:link,.common-link:hover,.common-link:visited{
+	color:#FFF;
+	text-decoration:none;
+}
+.common-link:hover{
+	text-decoration:underline;
+	}
+.common-ul{
+	margin:0;
+	padding:0;
+	border:0;
+	list-style:none;
+}
+
+.common-ul li{
+	float:left;
+	margin:0 10px;
+}
+
+.search-bar{
+	color:#555;
+	font-size:14px;
+}
+.search-bar select{
+	width:70px;
+	padding:0;
+	margin:0;
+	height:22px;	
+}
+.box{
+	width:100%;
+	border:1px solid #F69;
+	border-radius:5px;
+	box-shadow:2px 5px 3px #aaaaaa;
+}
+.box-header{
+	width:100%;
+	padding:5px 0;
+	color:#FFF;
+	background-color:#F06;
+}
+.box-content{
+	width:100%;
+}
+.user-box{
+	float:left;
+	width:160px;
+	height:250px;
+	margin:7px;
+}
+.footer{
+	padding:10px 0;
+	border-top:1px solid #F69;
+}
+.footer p{
+	text-align:center;
+	line-height:25px;
+}
+.padding10{
+	padding:0 10px;
+}
+.user-img{
+	float:left;
+	width:160px;
+}
+.user-info{
+	float:left;
+}
+.img{
+	width:160px;
+	height:160px;
+}
+.clear-both{
+	clear:both;
+}
+.right-box{
+	margin:5px 25px;
+}
+.log{
+	padding:5px;
+}
+.log a:link,.log a:hover,.log a:visited{
+	color:#F69;
+}
+.log-box{
+	height:558px;
+}
+.padding20{
+	padding:20px 0;
+}
+.avatar{
+	padding:10px;
+}
+.user-table{
+	padding:10px;
+	text-align:center;
+}
+.register-form{
+	font-size:16px;
+}
+.search-user{
+	padding:0 20px;
+	}
+.search-user a{
+	color:#F69;
+}
